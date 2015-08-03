@@ -1,13 +1,7 @@
 #
 class bsdauth::ldap::config {
 
-  $bind_dn      = $::bsdauth::ldap::bind_dn
-  $bind_pw      = $::bsdauth::ldap::bind_pw
-  $group_dn     = $::bsdauth::ldap::group_dn
-  $group_filter = $::bsdauth::ldap::group_filter
-  $login_class  = $::bsdauth::ldap::login_class
-  $servers      = $::bsdauth::ldap::servers
-  $user_filter  = $::bsdauth::ldap::user_filter
+  $servers = $::bsdauth::ldap::servers
 
   if size($servers) > 1 {
     $alternates = prefix(range(0, size($servers) - 2), 'x-ldap-serveralt')
@@ -27,7 +21,7 @@ class bsdauth::ldap::config {
     'x-ldap-filter'      => $::bsdauth::ldap::user_filter,
   }), hash(flatten(zip($variables, $servers))), { 'tc' => 'default' }), '=')
 
-  ::bsdauth::class { 'ldap':
+  ::bsdauth::class { $::bsdauth::ldap::login_class:
     capabilities => $capabilities,
   }
 }
