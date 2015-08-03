@@ -1,0 +1,37 @@
+{
+  "name": "bodgit-bsdauth",
+  "version": "1.0.0",
+  "author": "bodgit",
+  "summary": "Puppet Module for managing BSD authentication",
+  "license": "Apache-2.0",
+  "source": "https://github.com/bodgit/puppet-bsdauth",
+  "project_page": "https://github.com/bodgit/puppet-bsdauth",
+  "issues_url": "https://github.com/bodgit/puppet-bsdauth/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "OpenBSD",
+      "operatingsystemrelease": [
+        "5.7"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "tags": [
+    "ldap"
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=4.6.0 <5.0.0"
+    },
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">=1.2.4 <2.0.0"
+    }
+  ]
+}
