@@ -22,7 +22,7 @@ class bsdauth::config {
   }
 
   $defaults = {
-    'auth-defaults' => {
+    'auth-defaults'     => {
       'capabilities' => [
         'auth=passwd,skey',
       ],
@@ -34,7 +34,7 @@ class bsdauth::config {
       ],
       'order'        => '02',
     },
-    'default' => {
+    'default'           => {
       'capabilities' => [
         'path=/usr/bin /bin /usr/sbin /sbin /usr/X11R6/bin /usr/local/bin /usr/local/sbin', # lint:ignore:80chars
         'umask=022',
@@ -51,7 +51,7 @@ class bsdauth::config {
       ],
       'order'        => '03',
     },
-    'daemon' => {
+    'daemon'            => {
       'capabilities' => [
         'ignorenologin',
         'datasize=infinity',
@@ -63,7 +63,7 @@ class bsdauth::config {
       ],
       'order'        => '04',
     },
-    'staff' => {
+    'staff'             => {
       'capabilities' => [
         'datasize-cur=1536M',
         'datasize-max=infinity',
@@ -76,7 +76,7 @@ class bsdauth::config {
       'order'        => '05',
     },
     # These should maybe become part of other classes
-    'authpf' => {
+    'authpf'            => {
       'capabilities' => [
         'welcome=/etc/motd.authpf',
         'shell=/usr/sbin/authpf',
@@ -84,14 +84,14 @@ class bsdauth::config {
       ],
       'order'        => '06',
     },
-    'bgpd' => {
+    'bgpd'              => {
       'capabilities' => [
         'openfiles-cur=512',
         'tc=daemon',
       ],
       'order'        => '07',
     },
-    'unbound' => {
+    'unbound'           => {
       'capabilities' => [
         'openfiles-cur=512',
         'tc=daemon',
