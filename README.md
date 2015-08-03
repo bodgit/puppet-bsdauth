@@ -98,13 +98,35 @@ The login class to use, defaults to `ldap`.
 The LDAP search filter to use when searching for users, defaults to
 `(&(objectclass=posixAccount)(uid=%u))`.
 
+#### Defined Type: `bsdauth::class`
+
+**Parameters within `bsdauth::class`:**
+
+##### `name`
+
+The name of the login class.
+
+##### `capabilities`
+
+An array of capabilities to add to the login class.
+
+##### `order`
+
+The order in which to place this class within the `/etc/login.conf` file. This
+should be `'10'` or higher to come after the default classes.
+
 ### Examples
+
+Set up the default classes and compile the `/etc/login.conf.db` database:
 
 ```puppet
 class { '::bsdauth':
   build_db => true,
 }
 ```
+
+Set up the default classes and add an LDAP login class pointing at three LDAP
+servers and using anonymous binds:
 
 ```puppet
 include ::bsdauth
