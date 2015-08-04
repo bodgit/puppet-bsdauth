@@ -70,7 +70,7 @@ The base DN from which to perform all LDAP queries.
 
 ##### `servers`
 
-An array of LDAP servers to use.
+An array of `ldap:///` and/or `ldaps:///` URI strings representing servers to use.
 
 ##### `bind_dn`
 
@@ -134,9 +134,9 @@ include ::bsdauth
 class { '::bsdauth::ldap':
   base_dn => 'dc=example,dc=com',
   servers => [
-    '127.0.0.1',
-    '192.0.2.1',
-    '192.0.2.2',
+    'ldap://127.0.0.1',
+    'ldap://192.0.2.1',
+    'ldaps://192.0.2.2',
   ],
 }
 ```

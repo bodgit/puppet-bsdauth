@@ -1,17 +1,9 @@
 #
 class bsdauth::ldap::config {
 
-  $servers = $::bsdauth::ldap::servers
+  $servers = ldap_uri_to_login_ldap($::bsdauth::ldap::servers, false)
 
-  if size($servers) > 1 {
-    $alternates = prefix(range(0, size($servers) - 2), 'x-ldap-serveralt')
-    $variables = flatten(['x-ldap-server', $alternates])
-  } else {
-    $variables = ['x-ldap-server']
-  }
-
-  # Holy nested Puppet functions Batman!
-  $capabilities = join_keys_to_values(merge(delete_undef_values({
+  $capabilities = flatten([join_keys_to_values(delete_undef_values({
     'auth'               => '-ldap',
     'x-ldap-basedn'      => $::bsdauth::ldap::base_dn,
     'x-ldap-binddn'      => $::bsdauth::ldap::bind_dn,
@@ -19,7 +11,7 @@ class bsdauth::ldap::config {
     'x-ldap-groupdn'     => $::bsdauth::ldap::group_dn,
     'x-ldap-groupfilter' => $::bsdauth::ldap::group_filter,
     'x-ldap-filter'      => $::bsdauth::ldap::user_filter,
-  }), hash(flatten(zip($variables, $servers))), { 'tc' => 'default' }), '=')
+  }), '='), $servers, 'tc=default'])
 
   ::bsdauth::class { $::bsdauth::ldap::login_class:
     capabilities => $capabilities,

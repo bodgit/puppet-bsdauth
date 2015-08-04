@@ -6,9 +6,9 @@ describe 'bsdauth::ldap' do
     {
       'base_dn' => 'dc=example,dc=com',
       'servers' => [
-        '127.0.0.1',
-        '192.0.2.1',
-        '192.0.2.2',
+        'ldap://127.0.0.1',
+        'ldap://192.0.2.1',
+        'ldaps://192.0.2.2',
       ],
     }
   end
@@ -36,9 +36,9 @@ describe 'bsdauth::ldap' do
         	:auth=-ldap:\\
         	:x-ldap-basedn=dc=example,dc=com:\\
         	:x-ldap-filter=(&(objectclass=posixAccount)(uid=%u)):\\
-        	:x-ldap-server=127.0.0.1:\\
-        	:x-ldap-serveralt0=192.0.2.1:\\
-        	:x-ldap-serveralt1=192.0.2.2:\\
+        	:x-ldap-server=127.0.0.1,,plain:\\
+        	:x-ldap-serveralt0=192.0.2.1,,plain:\\
+        	:x-ldap-serveralt1=192.0.2.2,,ssl:\\
         	:tc=default:
         EOS
       }

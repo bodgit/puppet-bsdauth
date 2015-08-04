@@ -14,9 +14,9 @@ describe 'bsdauth::ldap' do
       bind_dn => 'uid=test,ou=people,dc=example,dc=com',
       bind_pw => 'password',
       servers => [
-        '127.0.0.1',
-        '192.0.2.1',
-        '192.0.2.2',
+        'ldap://127.0.0.1',
+        'ldap://192.0.2.1',
+        'ldaps://192.0.2.2',
       ],
     }
   EOS
@@ -34,7 +34,7 @@ describe 'bsdauth::ldap' do
 
     describe command('getcap -f /etc/login.conf ldap') do
       its(:exit_status) { should eq 0 }
-      its(:stdout) { should match /^ldap:(\s+:)?auth=-ldap:(\s+:)?x-ldap-basedn=dc=example,dc=com:(\s+:)?x-ldap-binddn=uid=test,ou=people,dc=example,dc=com:(\s+:)?x-ldap-bindpw=password:(\s+:)?x-ldap-filter=\(&\(objectclass=posixAccount\)\(uid=%u\)\):(\s+:)?x-ldap-server=127.0.0.1:(\s+:)?x-ldap-serveralt0=192.0.2.1:(\s+:)?x-ldap-serveralt1=192.0.2.2:/ }
+      its(:stdout) { should match /^ldap:(\s+:)?auth=-ldap:(\s+:)?x-ldap-basedn=dc=example,dc=com:(\s+:)?x-ldap-binddn=uid=test,ou=people,dc=example,dc=com:(\s+:)?x-ldap-bindpw=password:(\s+:)?x-ldap-filter=\(&\(objectclass=posixAccount\)\(uid=%u\)\):(\s+:)?x-ldap-server=127.0.0.1,,plain:(\s+:)?x-ldap-serveralt0=192.0.2.1,,plain:(\s+:)?x-ldap-serveralt1=192.0.2.2,,ssl:/ }
     end
   else
     it 'should not work' do
