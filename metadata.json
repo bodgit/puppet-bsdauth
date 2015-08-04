@@ -22,7 +22,10 @@
     }
   ],
   "tags": [
-    "ldap"
+    "bsd",
+    "auth",
+    "ldap",
+    "login.conf"
   ],
   "dependencies": [
     {
