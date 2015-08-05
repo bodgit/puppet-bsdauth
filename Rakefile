@@ -3,7 +3,7 @@ require 'puppet-lint/tasks/puppet-lint'
 require 'rake/clean'
 
 CLEAN.include('spec/fixtures/manifests', 'spec/fixtures/modules')
-CLOBBER.include('.tmp', '.librarian', '.vagrant', 'Puppetfile.lock', 'log', 'junit')
+CLOBBER.include('.tmp', '.librarian', '.vagrant', 'Puppetfile.lock', 'log', 'junit', 'coverage')
 
 task :spec => []; Rake::Task[:spec].clear
 task :spec do
