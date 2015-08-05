@@ -7,7 +7,7 @@ group :development, :test do
   gem 'puppetlabs_spec_helper',      :require => false
   gem 'puppet-lint', '~> 1.0.1',     :require => false
   gem 'librarian-puppet', '< 2.0.0', :require => false
-  gem 'beaker',                      :require => false, :git => 'https://github.com/bodgit/beaker.git', :branch => 'openbsd'
+  gem 'beaker', '~> 2.18.2',         :require => false
   gem 'beaker-rspec',                :require => false
   gem 'rspec-puppet-facts',          :require => false
   gem 'coveralls',                   :require => false
