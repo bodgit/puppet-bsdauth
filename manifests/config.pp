@@ -5,7 +5,7 @@ class bsdauth::config {
     owner => 0,
     group => 0,
     mode  => '0644',
-    warn  => '# !!! Managed by Puppet !!!',
+    warn  => "# !!! Managed by Puppet !!!\n",
   }
 
   if $::bsdauth::build_db {
