@@ -11,24 +11,30 @@ class bsdauth::ldap (
 ) inherits ::bsdauth::params {
 
   if ! defined(Class['::bsdauth']) {
-    fail('You must include the bsdauth base class before using the bsdauth::ldap class ') # lint:ignore:80chars
+    fail('You must include the bsdauth base class before using the bsdauth::ldap class') # lint:ignore:80chars
   }
 
   validate_string($base_dn)
+  validate_ldap_dn($base_dn)
   if $bind_dn {
     validate_string($bind_dn)
+    validate_ldap_dn($base_dn)
   }
   if $bind_pw {
     validate_string($bind_pw)
   }
   if $group_dn {
     validate_string($group_dn)
+    validate_ldap_dn($group_dn)
   }
   if $group_filter {
     validate_string($group_filter)
+    validate_ldap_filter($group_filter)
   }
   validate_array($servers)
+  validate_ldap_uri($servers)
   validate_string($user_filter)
+  validate_ldap_filter($user_filter)
 
   include ::bsdauth::ldap::install
   include ::bsdauth::ldap::config
