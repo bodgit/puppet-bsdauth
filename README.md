@@ -5,6 +5,7 @@ Tested with Travis CI
 [![Build Status](https://travis-ci.org/bodgit/puppet-bsdauth.svg?branch=master)](https://travis-ci.org/bodgit/puppet-bsdauth)
 [![Coverage Status](https://coveralls.io/repos/bodgit/puppet-bsdauth/badge.svg?branch=master&service=github)](https://coveralls.io/github/bodgit/puppet-bsdauth?branch=master)
 [![Puppet Forge](http://img.shields.io/puppetforge/v/bodgit/bsdauth.svg)](https://forge.puppetlabs.com/bodgit/bsdauth)
+[![Dependency Status](https://gemnasium.com/bodgit/puppet-bsdauth.svg)](https://gemnasium.com/bodgit/puppet-bsdauth)
 
 #### Table of Contents
 
@@ -171,7 +172,7 @@ This module has been built on and tested against Puppet 3.0 and higher.
 
 The module has been tested on:
 
-* OpenBSD 5.7
+* OpenBSD 5.7/5.8/5.9
 
 Testing on other platforms has been light and cannot be guaranteed.
 
