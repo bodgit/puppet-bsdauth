@@ -97,6 +97,7 @@ class bsdauth::params {
         'order'        => '09',
       }
       $ldap_package_name  = 'login_ldap'
+      $skey_directory     = '/etc/skey'
     }
     default: {
       fail("The ${module_name} module is not supported on an ${::osfamily} based system.")
