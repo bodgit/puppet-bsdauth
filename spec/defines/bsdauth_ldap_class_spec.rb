@@ -12,8 +12,10 @@ describe 'bsdauth::ldap::class' do
 
   let(:params) do
     {
-      'base_dn' => 'dc=example,dc=com',
-      'servers' => [
+      'base_dn'          => 'dc=example,dc=com',
+      'keep_credentials' => true,
+      'referrals'        => false,
+      'servers'          => [
         {
           'hostname' => '127.0.0.1',
         },
@@ -42,6 +44,8 @@ describe 'bsdauth::ldap::class' do
         ldap:\
         	:auth=-ldap:\
         	:x-ldap-basedn=dc=example,dc=com:\
+        	:x-ldap-noreferrals:\
+        	:x-ldap-refkeepcreds:\
         	:x-ldap-server=127.0.0.1:\
         	:x-ldap-serveralt0=192.0.2.1:\
         	:x-ldap-serveralt1=192.0.2.2,,ssl:\
