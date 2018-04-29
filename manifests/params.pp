@@ -98,6 +98,7 @@ class bsdauth::params {
       }
       $ldap_package_name  = 'login_ldap'
       $skey_directory     = '/etc/skey'
+      $yubikey_directory  = '/var/db/yubikey'
     }
     default: {
       fail("The ${module_name} module is not supported on an ${::osfamily} based system.")

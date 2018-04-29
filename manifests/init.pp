@@ -13,6 +13,7 @@
 # @see puppet_classes::bsdauth::pbuild ::bsdauth::pbuild
 # @see puppet_classes::bsdauth::skey ::bsdauth::skey
 # @see puppet_classes::bsdauth::unbound ::bsdauth::unbound
+# @see puppet_classes::bsdauth::yubikey ::bsdauth::yubikey
 # @see puppet_defined_types::bsdauth::class ::bsdauth::class
 class bsdauth (
   Boolean                         $build_db = $::bsdauth::params::build_db,
