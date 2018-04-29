@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Defined Type: bsdauth::yubikey::user
+  
+    &mdash; Documentation by YARD 0.9.12
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_defined_types::bsdauth::yubikey::user";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_defined_type_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (b)</a> &raquo;
+    <span class='title'><span class='object_link'>Defined Types</span></span>
+     &raquo; 
+    <span class="title">bsdauth::yubikey::user</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Defined Type: bsdauth::yubikey::user</h1>
+<div class="box_info">
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/yubikey/user.pp
+    </dd>
+  </dl>
+</div>
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+<p>Managing a Yubikey device for login purposes.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Declaring a Yubikey device for a user</p>
+</div></p>
+      
+      <pre class="example code"><code>include ::bsdauth
+include ::bsdauth::yubikey
+::bsdauth::yubikey { &#39;user&#39;:
+  key =&gt; &#39;deadbeefcafebabec0ffee0123456789&#39;,
+  uid =&gt; &#39;cafedeadbeef&#39;,
+}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>key</span>
+      
+      
+        <span class='type'>(<tt>Pattern[/^[0-9a-f]{32}$/]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The key from the given Yubikey.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>uid</span>
+      
+      
+        <span class='type'>(<tt>Pattern[/^[0-9a-f]{12}$/]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The uid from the given Yubikey.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>user</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$title</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The username the owns the Yubikey.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="../puppet_classes/bsdauth_3A_3Ayubikey.html" title="puppet_classes::bsdauth::yubikey (puppet_class)">::bsdauth::yubikey</a></span></li>
+    
+  </ul>
+<p class="tag_title">Since:</p>
+<ul class="since">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>2.0.0</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/yubikey/user.pp', line 18</span>
+
+define bsdauth::yubikey::user (
+  Pattern[/^[0-9a-f]{32}$/] $key,
+  Pattern[/^[0-9a-f]{12}$/] $uid,
+  String                    $user = $title,
+) {
+
+  if ! defined(Class[&#39;::bsdauth::yubikey&#39;]) {
+    fail(&#39;You must include the bsdauth::yubikey base class before using any bsdauth::yubikey defined resources&#39;)
+  }
+
+  $directory = $::bsdauth::yubikey::directory
+
+  file { &quot;${directory}/${user}.uid&quot;:
+    ensure  =&gt; file,
+    owner   =&gt; 0,
+    group   =&gt; &#39;auth&#39;,
+    mode    =&gt; &#39;0440&#39;,
+    content =&gt; &quot;${uid}\n&quot;,
+  }
+
+  file { &quot;${directory}/${user}.key&quot;:
+    ensure  =&gt; file,
+    owner   =&gt; 0,
+    group   =&gt; &#39;auth&#39;,
+    mode    =&gt; &#39;0440&#39;,
+    content =&gt; &quot;${key}\n&quot;,
+  }
+
+  file { &quot;${directory}/${user}.ctr&quot;:
+    ensure  =&gt; file,
+    owner   =&gt; 0,
+    group   =&gt; &#39;auth&#39;,
+    mode    =&gt; &#39;0440&#39;,
+    content =&gt; &quot;0\n&quot;,
+    replace =&gt; false,
+  }
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>
