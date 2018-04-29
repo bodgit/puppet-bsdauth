@@ -25,8 +25,8 @@ describe 'bsdauth::class' do
       end
 
       it { should contain_bsdauth__class('foo') }
-      it { should contain_concat__fragment('foo').with_content(<<-EOS.gsub(/^ +/, ''))
-        foo:\\
+      it { should contain_concat__fragment('bsdauth foo').with_content(<<-'EOS'.gsub(/^ {8}/, ''))
+        foo:\
         	:tc=default:
         EOS
       }

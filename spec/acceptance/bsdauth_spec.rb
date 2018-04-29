@@ -4,6 +4,10 @@ describe 'bsdauth' do
 
   pp = <<-EOS
     include ::bsdauth
+    include ::bsdauth::authpf
+    include ::bsdauth::bgpd
+    include ::bsdauth::pbuild
+    include ::bsdauth::unbound
   EOS
 
   case fact('osfamily')
@@ -34,6 +38,7 @@ describe 'bsdauth' do
       its(:stdout) { should match /^staff:/ }
       its(:stdout) { should match /^authpf:/ }
       its(:stdout) { should match /^bgpd:/ }
+      its(:stdout) { should match /^pbuild:/ }
       its(:stdout) { should match /^unbound:/ }
     end
   else

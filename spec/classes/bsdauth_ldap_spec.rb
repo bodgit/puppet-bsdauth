@@ -2,17 +2,6 @@ require 'spec_helper'
 
 describe 'bsdauth::ldap' do
 
-  let(:params) do
-    {
-      'base_dn' => 'dc=example,dc=com',
-      'servers' => [
-        'ldap://127.0.0.1',
-        'ldap://192.0.2.1',
-        'ldaps://192.0.2.2',
-      ],
-    }
-  end
-
   let(:pre_condition) do
     'include ::bsdauth'
   end
@@ -25,23 +14,9 @@ describe 'bsdauth::ldap' do
         })
       end
 
-      it { should contain_anchor('bsdauth::ldap::begin') }
-      it { should contain_anchor('bsdauth::ldap::end') }
-      it { should contain_bsdauth__class('ldap') }
       it { should contain_class('bsdauth::ldap') }
       it { should contain_class('bsdauth::ldap::config') }
       it { should contain_class('bsdauth::ldap::install') }
-      it { should contain_concat__fragment('ldap').with_content(<<-EOS.gsub(/^ +/, ''))
-        ldap:\\
-        	:auth=-ldap:\\
-        	:x-ldap-basedn=dc=example,dc=com:\\
-        	:x-ldap-filter=(&(objectclass=posixAccount)(uid=%u)):\\
-        	:x-ldap-server=127.0.0.1,,plain:\\
-        	:x-ldap-serveralt0=192.0.2.1,,plain:\\
-        	:x-ldap-serveralt1=192.0.2.2,,ssl:\\
-        	:tc=default:
-        EOS
-      }
       it { should contain_package('login_ldap') }
     end
   end

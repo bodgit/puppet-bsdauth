@@ -1,47 +1,26 @@
+# Manages LDAP login classes.
 #
+# @example Declaring the class
+#   include ::bsdauth
+#   include ::bsdauth::ldap
+#
+# @param classes A hash of LDAP login classes to create using
+#   `::bsdauth::ldap::class`.
+# @param package_name The package name.
+#
+# @see puppet_classes::bsdauth ::bsdauth
+# @see puppet_defined_types::bsdauth::ldap::class ::bsdauth::ldap::class
 class bsdauth::ldap (
-  $base_dn,
-  $servers,
-  $bind_dn      = undef,
-  $bind_pw      = undef,
-  $group_dn     = undef,
-  $group_filter = undef,
-  $login_class  = 'ldap',
-  $user_filter  = '(&(objectclass=posixAccount)(uid=%u))',
+  Hash[String, Hash[String, Any]] $classes      = {},
+  String                          $package_name = $::bsdauth::params::ldap_package_name,
 ) inherits ::bsdauth::params {
 
   if ! defined(Class['::bsdauth']) {
-    fail('You must include the bsdauth base class before using the bsdauth::ldap class') # lint:ignore:80chars
+    fail('You must include the bsdauth base class before using the bsdauth::ldap class')
   }
 
-  validate_string($base_dn)
-  validate_ldap_dn($base_dn)
-  if $bind_dn {
-    validate_string($bind_dn)
-    validate_ldap_dn($base_dn)
-  }
-  if $bind_pw {
-    validate_string($bind_pw)
-  }
-  if $group_dn {
-    validate_string($group_dn)
-    validate_ldap_dn($group_dn)
-  }
-  if $group_filter {
-    validate_string($group_filter)
-    validate_ldap_filter($group_filter)
-  }
-  validate_array($servers)
-  validate_ldap_uri($servers)
-  validate_string($user_filter)
-  validate_ldap_filter($user_filter)
+  contain ::bsdauth::ldap::install
+  contain ::bsdauth::ldap::config
 
-  include ::bsdauth::ldap::install
-  include ::bsdauth::ldap::config
-
-  anchor { 'bsdauth::ldap::begin': }
-  anchor { 'bsdauth::ldap::end': }
-
-  Anchor['bsdauth::ldap::begin'] -> Class['::bsdauth::ldap::install']
-    -> Class['::bsdauth::ldap::config'] -> Anchor['bsdauth::ldap::end']
+  Class['::bsdauth::ldap::install'] -> Class['::bsdauth::ldap::config']
 }

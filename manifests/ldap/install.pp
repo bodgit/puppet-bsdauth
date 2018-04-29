@@ -1,7 +1,7 @@
-#
+# @!visibility private
 class bsdauth::ldap::install {
 
-  package { 'login_ldap':
+  package { $::bsdauth::ldap::package_name:
     ensure => present,
   }
 }

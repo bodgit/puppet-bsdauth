@@ -1,15 +1,22 @@
+# Manages login classes.
 #
+# @example Declaring the class
+#   include ::bsdauth
+#
+# @param build_db Whether to compile the optional `/etc/login.conf.db` for 
+#   faster lookups.
+# @param classes A hash of login classes to create using `::bsdauth::class`.
+#
+# @see puppet_classes::bsdauth::authpf ::bsdauth::authpf
+# @see puppet_classes::bsdauth::bgpd ::bsdauth::bgpd
+# @see puppet_classes::bsdauth::ldap ::bsdauth::ldap
+# @see puppet_classes::bsdauth::pbuild ::bsdauth::pbuild
+# @see puppet_classes::bsdauth::unbound ::bsdauth::unbound
+# @see puppet_defined_types::bsdauth::class ::bsdauth::class
 class bsdauth (
-  $build_db = $::bsdauth::params::build_db,
+  Boolean                         $build_db = $::bsdauth::params::build_db,
+  Hash[String, Hash[String, Any]] $classes  = $::bsdauth::params::classes,
 ) inherits ::bsdauth::params {
 
-  validate_bool($build_db)
-
-  include ::bsdauth::config
-
-  anchor { 'bsdauth::begin': }
-  anchor { 'bsdauth::end': }
-
-  Anchor['bsdauth::begin'] -> Class['::bsdauth::config']
-    -> Anchor['bsdauth::end']
+  contain ::bsdauth::config
 }
